@@ -1,2 +1,2 @@
 # Проект для летней практикки ДВФУ. Морозов Денис, Коняхин Владислав, Трусенко Дмитрий.
-https://gwyneid.github.io/site
+https://gwyneid.github.io/Summer_practice
