@@ -14,8 +14,8 @@ class hero{
         this.img = img;
     }
 }
-let Warrior = new hero("Warrior", 165, 0, 3, 4, [], [], 100, "./assets/hero.giv");
-let Mage = new hero("Mage", 50, 0, 4, 4, [], [], 100, "./assets/hero.giv"); //временное img
+let Warrior = new hero("Warrior", 165, 0, 3, 4, [], [], 100, "./assets/hero.gif");
+let Mage = new hero("Mage", 50, 0, 4, 4, [], [], 100, "./assets/hero.gif"); //временное img
 
 
 //делаем массив героев

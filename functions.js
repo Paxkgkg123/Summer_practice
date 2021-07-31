@@ -35,7 +35,8 @@ function takeCard(deckCardActive, deckCardPassive, heroCountCard) {
 function useCard(card, hero, enemy) {
     if (hero.mana < card.cost) {
         console.log("no mana");
-        return 1;
+        hero.mana = -1;
+        return;
     }
     hero.mana -= card.cost;
     enemy.hp -= card.damage;
@@ -47,9 +48,8 @@ function useCard(card, hero, enemy) {
     }
     if (card.debuff) {
         enemy.buff.push(card.debuff);
-        enemy.timeBuff.push(card.timeBuff);
+        enemy.timeBuf;
     }
-    return 0;
 }
 
 

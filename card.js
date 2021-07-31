@@ -19,12 +19,12 @@ class card {
 
 let damageCard = new card("Удар", 1, 6, 0, 0, "", "", 0, "Наносит 6 ед. урона", "./assets/Attack.png");
 let armorCard = new card("Блок", 1, 0, 8, 0, "", "", 0, "Блокирует 8 ед. урона", "./assets/Block.png");
-let superDamageCard = new card("Мощный удар", 2, 15, 0, 0, "", "", 0, "Наносит 15 ед. урона", "./assets/Attack.png");
-let evadeCard = new card("Кувырок", 1, 0, 5, 0, "", "", 0, "Блокирует 5 ед. урона и дает 1 карту", "./assets/Attack.png"); //временное img
-let kickCard = new card("Пинок", 1, 5, 0 ,0 , "","ill",  1, "Наносит 5 ед. урона и ослабляет врага на 1 ход", "./assets/Attack.png"); //временное img
-let barierCard = new card("Ледяная преграда", 2, 0, 20, 0, "", "", 0, "Блокирует 20 ед. урона", "./assets/Attack.png"); //временное img
-let fireBallCard = new card("Огненный шар", 2, 12, 0, 0, "", "damage", 1, "Наносит 12 ед. урона и поджигает врага", "./assets/Attack.png"); //временное img
-let healCard = new card("Лечение", 0, 0, 0, 3, "", "", 0, "Лечит 3 ед. здоровья", "./assets/Attack.png"); //временное img
+let superDamageCard = new card("Мощный удар", 2, 15, 0, 0, "", "", 0, "Наносит 15 ед. урона", "./assets/SuperAttack.png");
+let evadeCard = new card("Кувырок", 1, 0, 5, 0, "", "", 0, "Блокирует 5 ед. урона и дает 1 карту", "./assets/evade.png"); 
+let kickCard = new card("Пинок", 1, 5, 0, 0 , "","ill",  1, "Наносит 5 ед. урона и ослабляет врага на 1 ход", "./assets/Kick.png");
+let barierCard = new card("Ледяная преграда", 2, 0, 20, 0, "", "", 0, "Блокирует 20 ед. урона", "./assets/barier.png");
+let fireBallCard = new card("Огненный шар", 2, 12, 0, 0, "", "damage", 1, "Наносит 12 ед. урона и поджигает врага", "./assets/fireball.png"); //временное img
+let healCard = new card("Лечение", 0, 0, 0, 3, "", "", 0, "Лечит 3 ед. здоровья", "./assets/Heal.png"); 
 
 
 //Создание колоды карт
