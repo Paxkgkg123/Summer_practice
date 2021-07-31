@@ -70,9 +70,22 @@ function preparingForBattle(heroIndex) {
     heroLiMana.id = "heroMana";
     let heroLiHp = document.createElement("li");
     heroLiHp.id = "heroHp";
+    let heroLiArmor = document.createElement("li");
+    heroLiArmor.id = "heroArmor";
+    let liMana = document.createElement("li");
+    let liHp = document.createElement("li");
+    let liArmor = document.createElement("li");
     
+    liMana.append("mana:");
+    liHp.append("hp:");
+    liArmor.append("armor:");
+    
+    heroUl.appendChild(liMana);
     heroUl.appendChild(heroLiMana);
+    heroUl.appendChild(liHp);
     heroUl.appendChild(heroLiHp);
+    heroUl.appendChild(liArmor);
+    heroUl.appendChild(heroLiArmor);
     
     heroParams.appendChild(heroUl);
     
@@ -89,7 +102,11 @@ function preparingForBattle(heroIndex) {
     let enemyUl = document.createElement("ul");
     let enemyLiHp = document.createElement("li");
     enemyLiHp.id = "enemyHp";
+    let liHpText = document.createElement("li");
     
+    liHpText.append("hp:")
+    
+    enemyUl.appendChild(liHpText);
     enemyUl.appendChild(enemyLiHp);
     
     enemyParams.appendChild(enemyUl); 
@@ -100,6 +117,7 @@ function preparingForBattle(heroIndex) {
     
     // собираем деку в зависимости от героя
     createDeck(hero.name);
+    createSpecial(hero.name);
     
     
     let mana = hero.mana;
@@ -110,24 +128,6 @@ function preparingForBattle(heroIndex) {
     
     
     round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana);
-}
-
-
-function createDeck(name) {
-    for (let i = 0; i < 6; i++) {
-        deckCard.push(damageCard);
-        deckCard.push(armorCard);
-    }
-    if (name == "Warrior") {
-        deckCard.push(superDamageCard);
-        deckCard.push(evadeCard);
-        deckCard.push(kickCard);
-    }
-    else {
-        deckCard.push(barierCard);
-        deckCard.push(fireBallCard);
-        deckCard.push(healCard);
-    }
 }
 
 
@@ -161,7 +161,11 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
                 console.log("***" + hero.hp + " " + enemy.hp)
                 changeHeroEnemyParams(hero, enemy);
             }
-        };
+            if (enemy.hp == 0) {
+                alert("Ты победил!!!!!!!!!!!!!!!! Держи золото и карты!");
+                
+            }
+    };
         handCardOnScreen.appendChild(cardImg);
     }
     
@@ -183,13 +187,40 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
         updateParams(hero, handCard, deckCardPassive, mana);
         if (hero.hp > 0 && enemy.hp > 0) {
             round(hero, enemy, deckCardActive, deckCardPassive, handCard, ++numberRound, mana);
-        } else {
-            if (hero.hp > 0) {
-                alert("Ты победил!!!!!!!!!!1, держи золото");
-                hero.gold += enemy.gold;
-            } else {
-                alert("Ты проиграл. Пока(");
+        }
+        if (hero.hp == 0) {
+            alert("Ты проиграл. Пока(");
+            
+            let everything = document.getElementById("everything");
+            let gameField = document.getElementById("gameField");
+            everything.removeChild(gameField);
+            
+            let chooseDiv = document.createElement("div");
+            chooseDiv.className = "chooseHappening";
+            let leftButton = document.createElement("button");
+            leftButton.className = "leftButton";
+            leftButton.onclick = function() {
+                window.location.replace("menu.html");
             }
+            let rightButton = document.createElement("button");
+            rightButton.className = "rightButton";
+            rightButton.onclick = function() {
+                window.location.replace("index.html");
+            }
+            let text = document.createElement("div");
+            text.className = "textHappening";
+            
+            
+            leftButton.append("menu");
+            rightButton.append("restart");
+            text.append("Ты проиграл(");
+            
+            chooseDiv.appendChild(leftButton);
+            chooseDiv.appendChild(rightButton);
+            chooseDiv.appendChild(text);
+            
+            everything.appendChild(chooseDiv);
+    
         }
     };
     endMove.append(btnText);
@@ -201,8 +232,10 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
 function changeHeroEnemyParams(hero, enemy) {
     let heroMana = document.getElementById("heroMana");
     let heroHp = document.getElementById("heroHp");
+    let heroArmor = document.getElementById("heroArmor");
     heroMana.replaceChildren(hero.mana);
-    heroHp.replaceChildren(hero.hp);    
+    heroHp.replaceChildren(hero.hp);  
+    heroArmor.replaceChildren(hero.armor);  
     
     let enemyHp = document.getElementById("enemyHp");
     enemyHp.replaceChildren(enemy.hp);
@@ -268,19 +301,24 @@ function pushBuffHero(hero, deckCardActive, handCard) {
     for (let i = 0; i < hero.buff.length; i++) {
         if (hero.buff[i] == "card") {
             
-            // добавляем случайную карту в handCard
-            let n = Math.floor(Math.random() * (deckCardActive.length - 1));
-            handCard.push(deckCardActive[n]);
-            deckCardActive.splice(n, 1);
-            
-            // выводим новую карту на экран
-            let handCardOnScreen = document.getElementById("handCardOnScreen");
-            let cardImg = document.createElement("img");
-            cardImg.src = deckCardActive[n].img;
-            handCardOnScreen.appendChild(cardImg);
-            
+            for (let i = 0; i < hero.timeBuff; i++) {
+                
+                // добавляем случайную карту в handCard
+                let n = Math.floor(Math.random() * (deckCardActive.length - 1));
+                handCard.push(deckCardActive[n]);
+                deckCardActive.splice(n, 1);
+                
+                // выводим новую карту на экран
+                let handCardOnScreen = document.getElementById("handCardOnScreen");
+                let cardImg = document.createElement("img");
+                cardImg.src = deckCardActive[n].img;
+                handCardOnScreen.appendChild(cardImg);
+                
+            }
+        
             // удаляем бафф
             hero.buff[i] = "";
+            hero.timeBuff = 0;
         }
     }
 }
@@ -298,7 +336,7 @@ function pushBuffEnemy(enemy) {
             }
             enemy.damageMult = 0,5;
             enemy.timeBuff[i] -= 1;
-        } else if (element == "damage") {
+        } else if (enemy.buff[i] == "damage") {
             if (enemy.timeBuff[i] == 0) {
                 enemy.buff.splice(i, 1);
                 enemy.timeBuff.splice(i, 1);
@@ -316,6 +354,9 @@ function enemyMove(enemy, hero, numberRound) {
      if (enemy.damage[numberRound % 3] > 0) {
         if (Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult) - hero.armor > 0) {
             hero.hp -= Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult) - hero.armor;
+            if (hero.hp < 0) {
+                hero.hp = 0;
+            }
             hero.armor = 0;
         } else {
             hero.armor -= Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult);
@@ -335,5 +376,9 @@ function updateParams(hero, handCard, deckCardPassive, mana) {
 }
 
 
+function chooseMove(left, right) {
+    
+}
 
 chooseHero();
+
