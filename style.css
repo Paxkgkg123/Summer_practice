@@ -145,20 +145,23 @@ button {
 }
 
 #heroParams {
-  background-color: gray;
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  top: 100px;
+  background-image: url(./assets/gifs/idle.gif);
+    height: 500px;
+    width: 500px;
+    bottom: -100px;
+    left: -50px;
+    align-items: center;
+    position: absolute;
 }
 
 #enemyParams {
-  background-color: gray;
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  left: 1100px;
-  top: 100px;
+  background-image: url(./assets/gifs/idle_skeleton.gif);
+    height: 500px;
+    width: 500px;
+    bottom: -100px;
+    left: 700px;
+    align-items: center;
+    position: absolute;
 }
 
 #endMove {
