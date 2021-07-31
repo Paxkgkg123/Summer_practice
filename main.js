@@ -37,7 +37,7 @@ function preparingForBattle(heroIndex) {
     let hero = heroesArray[heroIndex];
     
     let heroImg = document.createElement("img");
-    heroImg.src = hero.img;
+    heroImg.src = hero.gif;
     
     let heroOnScreen = document.createElement("div");
     heroOnScreen.id = "heroOnScreen";
@@ -52,7 +52,7 @@ function preparingForBattle(heroIndex) {
     let enemy = enemiesArray[enemyIndex];
     
     let enemyImg = document.createElement("img");
-    enemyImg.src = enemy.img;
+    enemyImg.src = enemy.gif;
     
     let enemyOnScreen = document.createElement("div");
     enemyOnScreen.id = "enemyOnScreen";
