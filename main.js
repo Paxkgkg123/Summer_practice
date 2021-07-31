@@ -37,7 +37,7 @@ function preparingForBattle(heroIndex) {
     let hero = heroesArray[heroIndex];
     
     let heroImg = document.createElement("img");
-    heroImg.src = ./assets/hero.gif;
+    heroImg.src = hero.img;
     
     let heroOnScreen = document.createElement("div");
     heroOnScreen.id = "heroOnScreen";
@@ -52,7 +52,7 @@ function preparingForBattle(heroIndex) {
     let enemy = enemiesArray[enemyIndex];
     
     let enemyImg = document.createElement("img");
-    enemyImg.src = ./assets/enemy.gif;
+    enemyImg.src = enemy.img;
     
     let enemyOnScreen = document.createElement("div");
     enemyOnScreen.id = "enemyOnScreen";
@@ -109,10 +109,34 @@ function preparingForBattle(heroIndex) {
     let numberRound = 0;
     
     
-    heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana);
+    round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana);
 }
 
-function heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana) {
+
+function createDeck(name) {
+    for (let i = 0; i < 6; i++) {
+        deckCard.push(damageCard);
+        deckCard.push(armorCard);
+    }
+    if (name == "Warrior") {
+        deckCard.push(superDamageCard);
+        deckCard.push(evadeCard);
+        deckCard.push(kickCard);
+    }
+    else {
+        deckCard.push(barierCard);
+        deckCard.push(fireBallCard);
+        deckCard.push(healCard);
+    }
+}
+
+
+function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana) {    
+    
+    changeHeroEnemyParams(hero, enemy);
+    
+    console.log(numberRound);
+    
     // Берем карты в руку
     let threeDeck = takeCard(deckCardActive, deckCardPassive, hero.countCard);
     deckCardActive = threeDeck.resultActive;
@@ -130,6 +154,7 @@ function heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numbe
         cardImg.onclick = function() {
             //используем карту и удаляем если хватает маны
             useCard(handCard[i], hero, enemy);
+            pushBuffHero(hero, deckCardActive, handCard);
             if (hero.mana != -1) {
                 handCardOnScreen.removeChild(cardImg);
                 deckCardPassive.push(handCard[i]);
@@ -149,13 +174,15 @@ function heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numbe
     let endMove = document.createElement("button");
     endMove.id = "endMove";
     let btnText = "ход злодея";
-    endMove.onclick = function(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana) {
+    endMove.onclick = function() {
+        gameField.removeChild(handCardOnScreen);
+        console.log(mana);
         pushBuffEnemy(enemy);
         enemyMove(enemy, hero, numberRound);
         changeHeroEnemyParams(hero, enemy);
         updateParams(hero, handCard, deckCardPassive, mana);
         if (hero.hp > 0 && enemy.hp > 0) {
-            heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound++, mana);
+            round(hero, enemy, deckCardActive, deckCardPassive, handCard, ++numberRound, mana);
         } else {
             if (hero.hp > 0) {
                 alert("Ты победил!!!!!!!!!!1, держи золото");
@@ -171,6 +198,117 @@ function heroRound(hero, enemy, deckCardActive, deckCardPassive, handCard, numbe
 }
 
 
+function changeHeroEnemyParams(hero, enemy) {
+    let heroMana = document.getElementById("heroMana");
+    let heroHp = document.getElementById("heroHp");
+    heroMana.replaceChildren(hero.mana);
+    heroHp.replaceChildren(hero.hp);    
+    
+    let enemyHp = document.getElementById("enemyHp");
+    enemyHp.replaceChildren(enemy.hp);
+    
+}
+
+
+//Добавление карт в руку
+function takeCard(deckCardActive, deckCardPassive, heroCountCard) {
+    let result = {
+        resultActive: [],
+        resultPassive: [],
+        resultHand: []
+    }
+    
+    if (deckCardActive.length < heroCountCard) {
+        result.resultHand = deckCardActive;
+        for (let i = 0; i < heroCountCard - deckCardActive.length;) {
+            let numberRand = Math.floor(Math.random() * (deckCardPassive.length - 1));
+            result.resultHand.push(deckCardPassive[numberRand]);
+            deckCardPassive.splice(numberRand, 1);
+        }
+        result.resultActive = deckCardPassive;
+        result.resultPassive = [];
+    } else {
+        for (let i = 0; i < heroCountCard; i++) {
+            let numberRand = Math.floor(Math.random() * (deckCardActive.length - 1));
+            result.resultHand.push(deckCardActive[numberRand]);
+            deckCardActive.splice(numberRand, 1);
+        }
+        result.resultActive = deckCardActive;
+        result.resultPassive = deckCardPassive;
+    }
+    
+    return result;
+}
+
+
+function useCard(card, hero, enemy) {
+    if (hero.mana < card.cost) {
+        console.log("no mana");
+        hero.mana = -1;
+        return;
+    }
+    hero.mana -= card.cost;
+    enemy.hp -= card.damage;
+    if (enemy.hp < 0)
+        enemy.hp = 0;
+    hero.armor += card.armor;
+    hero.hp += card.heal;
+    if (card.buff) {
+        hero.buff.push(card.buff);
+        hero.timeBuff.push(card.timeBuff);
+    }
+    if (card.debuff) {
+        enemy.buff.push(card.debuff);
+        enemy.timeBuf;
+    }
+}
+
+
+function pushBuffHero(hero, deckCardActive, handCard) {
+    for (let i = 0; i < hero.buff.length; i++) {
+        if (hero.buff[i] == "card") {
+            
+            // добавляем случайную карту в handCard
+            let n = Math.floor(Math.random() * (deckCardActive.length - 1));
+            handCard.push(deckCardActive[n]);
+            deckCardActive.splice(n, 1);
+            
+            // выводим новую карту на экран
+            let handCardOnScreen = document.getElementById("handCardOnScreen");
+            let cardImg = document.createElement("img");
+            cardImg.src = deckCardActive[n].img;
+            handCardOnScreen.appendChild(cardImg);
+            
+            // удаляем бафф
+            hero.buff[i] = "";
+        }
+    }
+}
+
+
+//изменяем баффы злодея
+function pushBuffEnemy(enemy) {
+    for (let i = 0; i < enemy.buff.length; i++){
+        if (enemy.buff[i] == "ill") {
+            if (enemy.timeBuff[i] == 0) {
+                enemy.damageMult = 1;
+                enemy.buff.splice(i, 1);
+                enemy.timeBuff.splice(i, 1);
+                i--;
+            }
+            enemy.damageMult = 0,5;
+            enemy.timeBuff[i] -= 1;
+        } else if (element == "damage") {
+            if (enemy.timeBuff[i] == 0) {
+                enemy.buff.splice(i, 1);
+                enemy.timeBuff.splice(i, 1);
+                i--;
+            }
+            enemy.hp -= 3;
+            enemy.timeBuff[i] -= 1;
+        }
+    };
+}
 
 
 function enemyMove(enemy, hero, numberRound) {
@@ -196,15 +334,6 @@ function updateParams(hero, handCard, deckCardPassive, mana) {
     hero.mana = mana;
 }
 
-function changeHeroEnemyParams(hero, enemy) {
-    let heroMana = document.getElementById("heroMana");
-    let heroHp = document.getElementById("heroHp");
-    heroMana.replaceChildren(hero.mana);
-    heroHp.replaceChildren(hero.hp);    
-    
-    let enemyHp = document.getElementById("enemyHp");
-    enemyHp.replaceChildren(enemy.hp);
-    
-}
+
 
 chooseHero();
