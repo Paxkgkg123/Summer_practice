@@ -4,6 +4,7 @@ body{
   background-color: rgb(199, 151, 63);
   background-image: url("./assets/background_1.png");
   background-position: right bottom;
+  background-size: cover;
 }
 .container{
   width: 100%;
