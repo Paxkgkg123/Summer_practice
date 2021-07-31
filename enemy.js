@@ -15,8 +15,8 @@
      }
  }
  
-let HumanEnemy = new enemy("HumanEnemy", 100, 1, [15, 0, 45], [], [], 50, "./assets/gifs/enemy.gif"); //временное img
-let ArcherEnemy = new enemy("ArcherEnemy", 120, 1, [30, 30, 30], [], [], 50, "./assets/gifs/enemy.gif");
+let HumanEnemy = new enemy("HumanEnemy", 100, 1, [15, 0, 45], [], [], 50, "./assets/gifs/enemy.gif"); // временнаф гифка
+let ArcherEnemy = new enemy("ArcherEnemy", 120, 1, [30, 30, 30], [], [], 50, "./assets/gifs/enemy.gif"); // временная гифка
 
 //массив злодеев
 let enemiesArray = [HumanEnemy, ArcherEnemy];
