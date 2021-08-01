@@ -142,7 +142,9 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
     deckCardActive = threeDeck.resultActive;
     deckCardPassive = threeDeck.resultPassive;
     handCard = threeDeck.resultHand;
-    
+       
+    // Индекс специальной карты
+    let indexSpecial = Math.floor(Math.random() * (deckSpecial.length));
     
     // выводим карты в руке на экран
     let handCardOnScreen = document.createElement("div");
@@ -162,8 +164,8 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
                 changeHeroEnemyParams(hero, enemy);
             }
             if (enemy.hp == 0) {
-                alert("Ты победил!!!!!!!!!!!!!!!! Держи золото и карты!");
-                
+                deckCard.push(deckSpecial[indexSpecial])
+                alert("Ты победил! Держи "+ enemy.gold +" золота и " + deckSpecial[indexSpecial].name +" карту!");
             }
     };
         handCardOnScreen.appendChild(cardImg);
