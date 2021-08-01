@@ -6,6 +6,13 @@ body{
   background-position: right bottom;
   background-size: 1920px;
 }
+
+ul{
+  list-style-type: none;
+  text-align: center;
+  margin-top: 20%;
+}
+
 .container{
   width: 100%;
   height: 100vh;
@@ -136,7 +143,7 @@ button {
 }
 
 #heroParams {
-  background-color: gray;
+  background-image: url(./assets/scroll.png);
   height: 150px;
   width: 100px;
   position: absolute;
@@ -145,8 +152,8 @@ button {
 }
 
 #enemyParams {
-  background-color: gray;
-  height: 100px;
+  background-image: url(./assets/scroll.png);
+  height: 150px;
   width: 100px;
   position: absolute;
   right: 100px;
@@ -154,10 +161,12 @@ button {
 }
 
 #endMove {
+  height: 54px;
+  width: 100px;
   position: absolute;
-  top: 70px;
-  left: 120px;
-  background-color: white;
+  bottom: 70px;
+  right: 120px;
+  background-image: url(./assets/next.png);
 }
 
 .chooseHappening {
