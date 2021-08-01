@@ -377,7 +377,7 @@ function useCard(card, hero, enemy) {
     hero.hp += card.heal;
     if (card.buff) {
         hero.buff.push(card.buff);
-        hero.timeBuff.push(card.timeBuff);
+        hero.timeBuff+=1;
     }
     if (card.debuff) {
         enemy.buff.push(card.debuff);
