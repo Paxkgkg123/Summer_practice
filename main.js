@@ -453,7 +453,10 @@ function enemyMove(enemy, hero, numberRound) {
         } else {
             hero.armor -= Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult);
         }
-    } 
+    }
+        else {
+        enemy.hp-=enemy.damage[numberRound % 3];
+        }
 }
 
 function updateParams(hero, handCard, deckCardPassive, mana) {
