@@ -190,3 +190,9 @@ button {
   left: 230px;
   font-size: 30;
 }
+
+#chooseCardOnScreen {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
