@@ -54,6 +54,7 @@ function preparingForBattle() {
     
     let heroOnScreen = document.createElement("div");
     heroOnScreen.id = "heroOnScreen";
+    heroOnScreen.classList.add('hero');
     
     heroOnScreen.appendChild(heroImg);
     gameField.appendChild(heroOnScreen);
@@ -68,6 +69,7 @@ function preparingForBattle() {
     
     let enemyOnScreen = document.createElement("div");
     enemyOnScreen.id = "enemyOnScreen";
+    enemyOnScreen.classList.add('enemy');
     
     enemyOnScreen.appendChild(enemyImg);
     gameField.appendChild(enemyOnScreen);
@@ -179,7 +181,7 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
     
     let endMove = document.createElement("button");
     endMove.id = "endMove";
-    let btnText = "ход злодея";
+    let btnText = " ";
     endMove.onclick = function() {
         gameField.removeChild(handCardOnScreen);
         pushBuffEnemy(enemy);
