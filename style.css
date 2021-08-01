@@ -122,10 +122,12 @@ button {
 }
 
 #chooseHero {
-  margin: 0 auto;
-  margin-top: 15%;
-  overflow: hidden;
-  width: 20%;
+  margin: 0; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) 
 }
 
 #gameField {  
