@@ -181,7 +181,7 @@ function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRou
     
     let endMove = document.createElement("button");
     endMove.id = "endMove";
-    let btnText = "ход злодея";
+    let btnText = " ";
     endMove.onclick = function() {
         gameField.removeChild(handCardOnScreen);
         console.log(mana);
