@@ -41,6 +41,7 @@ function preparingForBattle(heroIndex) {
     
     let heroOnScreen = document.createElement("div");
     heroOnScreen.id = "heroOnScreen";
+    heroOnScreen.classList.add('hero');
     
     heroOnScreen.appendChild(heroImg);
     gameField.appendChild(heroOnScreen);
@@ -56,6 +57,7 @@ function preparingForBattle(heroIndex) {
     
     let enemyOnScreen = document.createElement("div");
     enemyOnScreen.id = "enemyOnScreen";
+    enemyOnScreen.classList.add('enemy');
     
     enemyOnScreen.appendChild(enemyImg);
     gameField.appendChild(enemyOnScreen);
