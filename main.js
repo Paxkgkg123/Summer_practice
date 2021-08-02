@@ -377,7 +377,7 @@ function useCard(card, hero, enemy) {
     hero.hp += card.heal;
     if (card.buff) {
         hero.buff.push(card.buff);
-        hero.timeBuff.push(card.timeBuff);
+        hero.timeBuff+=1;
     }
     if (card.debuff) {
         enemy.buff.push(card.debuff);
@@ -425,17 +425,19 @@ function pushBuffEnemy(enemy) {
                 enemy.buff.splice(i, 1);
                 enemy.timeBuff.splice(i, 1);
                 i--;
+            } else {
+                enemy.damageMult = 0,5;
+                enemy.timeBuff[i] -= 1;
             }
-            enemy.damageMult = 0,5;
-            enemy.timeBuff[i] -= 1;
         } else if (enemy.buff[i] == "damage") {
             if (enemy.timeBuff[i] == 0) {
                 enemy.buff.splice(i, 1);
                 enemy.timeBuff.splice(i, 1);
                 i--;
+            } else {
+                enemy.hp -= 3;
+                enemy.timeBuff[i] -= 1;
             }
-            enemy.hp -= 3;
-            enemy.timeBuff[i] -= 1;
         }
     };
 }
@@ -444,14 +446,14 @@ function pushBuffEnemy(enemy) {
 function enemyMove(enemy, hero, numberRound) {
       
      if (enemy.damage[numberRound % 3] > 0) {
-        if (Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult) - hero.armor > 0) {
-            hero.hp -= Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult) - hero.armor;
+        if (enemy.damage[numberRound % 3] * enemy.damageMult - hero.armor > 0) {
+            hero.hp -= enemy.damage[numberRound % 3] * enemy.damageMult - hero.armor;
             if (hero.hp < 0) {
                 hero.hp = 0;
             }
             hero.armor = 0;
         } else {
-            hero.armor -= Math.floor(enemy.damage[numberRound % 3] * enemy.damageMult);
+            hero.armor -= enemy.damage[numberRound % 3] * enemy.damageMult;
         }
     }
         else {
