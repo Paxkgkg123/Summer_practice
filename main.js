@@ -5,6 +5,17 @@ let numberLevel = 0;
 let generalMana;
 let generalHp;
 
+setTimeout(setTimeoutChoose, 2500);
+setTimeout(setTimeoutGameField, 2500);
+
+function setTimeoutChoose() {
+	document.getElementById("choose").style.display = "none";
+}
+
+function setTimeoutGameField() {
+	document.getElementById("gameField").style.visibility = "visible";
+}
+
 
 // выбор героя
 function chooseHero() {
@@ -20,7 +31,12 @@ function chooseHero() {
         let img = document.createElement("img");
         img.src = heroesArray[i].img;
         img.onclick = function() {
-            alert("вы выбрали " + heroesArray[i].name);
+            let choose = document.createElement("div");
+            choose.append("вы выбрали " + heroesArray[i].name);
+            choose.id = "choose";
+            let everything = document.getElementById("everything");
+            everything.appendChild(choose);
+            
             div.parentNode.removeChild(div);
             generalHero = heroesArray[i];
             generalHp = generalHero.hp;
@@ -32,12 +48,19 @@ function chooseHero() {
 }
 
 
+
 function preparingForBattle() {
+    
     
     console.log(numberLevel);
     // создаем игровое поле
     let gameField = document.createElement("div");
     gameField.id = "gameField";
+    
+    if (numberLevel > 0) {
+        gameField.style.visibility = "visible";
+        
+    }
     
     let everything = document.getElementById("everything");
     everything.appendChild(gameField);
@@ -136,7 +159,7 @@ function preparingForBattle() {
     }
     
     let mana = hero.mana;
-    let deckCardActive = deckCard; // колода
+    let deckCardActive = Object.assign([], deckCard); // колода
     let deckCardPassive = []; // бита
     let handCard = []; // в руке
     let numberRound = 0;
@@ -147,6 +170,9 @@ function preparingForBattle() {
 
 
 function round(hero, enemy, deckCardActive, deckCardPassive, handCard, numberRound, mana) {    
+    
+    console.log(deckCard);
+    console.log(deckCardPassive);
     
     changeHeroEnemyParams(hero, enemy);
     console.log(generalHero.hp + "    " + enemy.hp);
@@ -272,6 +298,7 @@ function cardOnclick(cardNumber, hero, enemy, handCard, deckCardActive, deckCard
                 // при нажатии на карту она добавляется в основную колоду
                 chooseCardImg.onclick = function() {
                     alert("вы выбрали " + deckSpecial[i].name);
+                    
                     deckCard.push(chooseCard[i]);
                     chooseCard.splice(i, 1);
                     deckSpecial.push(chooseCard[0]);
@@ -472,9 +499,6 @@ function updateParams(hero, handCard, deckCardPassive, mana) {
     hero.mana = mana;
 }
 
-function restart() {
-    
-}
 
 chooseHero();
 

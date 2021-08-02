@@ -133,6 +133,7 @@ button {
 }
 
 #gameField {  
+  visibility: hidden;
   position: fixed;
   height: 100%;
   width: 100%;
@@ -202,4 +203,12 @@ button {
   position: relative;
   top: 20%;
   font-size: 25;
+}
+
+#choose {
+  position: absolute;
+  left: 35%;
+  top: 40%;
+  font-size: 40;
+  color: aqua;
 }
