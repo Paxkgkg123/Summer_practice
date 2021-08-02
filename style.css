@@ -23,17 +23,19 @@ ul{
 * { padding: 0; margin: 0; }
 
 .menu {
-  background-color: blue;
+  background-color: lightslategray;
   height: 440px;
   width: 700px;
   display: block;
   margin: auto;
   text-align: center;
   padding: 5px;
+  border-radius: 1%;
 }
+
 .caption {
   padding: 5px;
-  background-color: #fff;
+  background-color: #94651F;
   margin: -5px;
 }
 .play {
@@ -175,7 +177,8 @@ button {
   position: absolute;
   top: 20%;
   left: 33%;
-  background-color: gray;
+  background-color: lightslategrey;
+  border-radius: 5%;
   width: 400px;
   height: 300px;
 }
@@ -190,6 +193,13 @@ button {
 .rightButton {  
   position: absolute;
   bottom: 20px;
-  left: 230px;
+  right: 40px;
   font-size: 30;
+}
+
+.textHappening {  
+  text-align: center;
+  position: relative;
+  top: 20%;
+  font-size: 25;
 }
